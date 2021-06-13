@@ -2,6 +2,8 @@
 
 $HADOOP_HOME/sbin/start-all.sh
 
+hdfs dfsadmin -safemode leave
+
 hdfs dfs -rm -r -f /SkeinAssignment
 
 hdfs dfs -mkdir /SkeinAssignment
@@ -10,12 +12,18 @@ hdfs dfs -put dataset/* /SkeinAssignment/input
 
 javac -cp `hadoop classpath` -d ./convertToSequence/ ./convertToSequence/*.java
 
-jar cfm ConvertSequence.jar ./convertToSequence/Manifest.txt ./convertToSequence/convertsequence/*.class
+cd ./convertToSequence
 
-echo "done compile !"
+jar cfm ./ConvertSequence.jar ./Manifest.txt ./convertsequence/*.class
+
+cd ../
+
+echo "done compiling ConvertSequence.jar!"
 
 javac -cp `hadoop classpath` -d ./detectDuplicateImage ./detectDuplicateImage/*.java
 
-jar cfm DetectDuplicate.jar ./detectDuplicateImage/Manifest.txt ./detectDuplicateImage/detectduplicate/*.class
+cd ./detectDuplicateImage
 
-echo "done compile !"
+jar cfm ./DetectDuplicate.jar ./Manifest.txt ./detectduplicate/*.class
+
+echo "done compiling DetectDuplicate.jar!"
