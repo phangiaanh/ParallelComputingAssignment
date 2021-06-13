@@ -45,7 +45,7 @@ public class ConvertSequence extends Configured implements Tool {
     Job job = Job.getInstance(conf);
     job.setJarByClass(ConvertSequence.class);
     job.setJobName("ConvertSequence");
-    job.setInputFormatClass(MyFileInputFormat.class);
+    job.setInputFormatClass(AssignmentInputFormat.class);
     job.setOutputFormatClass(SequenceFileOutputFormat.class);
 
     job.setNumReduceTasks(1);
